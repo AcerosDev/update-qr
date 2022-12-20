@@ -13,7 +13,7 @@ const Navbar = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Link href="https://acerosmedina.com/" >
-              <img src="acerosmedina.png" width={220} alt="logo" />
+              <img src="acerosmedina.png" width={220} alt="Logo" />
             </Link>
           </Toolbar>
         </Container>
