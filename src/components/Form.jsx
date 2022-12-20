@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import Paper from '@mui/material/Paper';
@@ -23,18 +22,14 @@ function Form() {
 
     return (
         <>
-            <Grid
-                container
-                spacing={0}
-                direction="column"
-                alignItems="center"
-                justifyContent={"center"}
-                sx={{ pt: 10 }}
-            >
-                <Container component="main" maxWidth="sm">
+                <Container
+                    component="main"
+                    maxWidth="sm"
+                    sx={{ pt: 10 }}
+                >
                     <Paper
                         elevation={3}
-                        sx={{ p: 3, m: "auto", width: "100%" }}
+                        sx={{ p: 3 }}
                         variant="outlined"
                     >
                         <Typography variant="h6" component="h1">
@@ -46,9 +41,11 @@ function Form() {
                             variant="contained"
                             startIcon={<AttachFileIcon />}
                             color="secondary"
+                            component="label"
                             sx={{ mb: 2 }}
                         >
                             Seleccionar archivo
+                            <input hidden accept="image/*" multiple type="file" />
                         </Button>
 
                         <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
@@ -170,8 +167,6 @@ function Form() {
 
                     </Paper>
                 </Container>
-
-            </Grid>
         </>
     )
 }
