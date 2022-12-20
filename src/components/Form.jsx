@@ -92,7 +92,7 @@ function Form() {
                         <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
                             <FormControl fullWidth>
                                 <TextField
-                                    label="Teléfono"
+                                    label="Tel"
                                     type="tel"
                                     color="primary"
                                     name="tel"
