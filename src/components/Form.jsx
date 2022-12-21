@@ -22,151 +22,161 @@ function Form() {
 
     return (
         <>
-                <Container
-                    component="main"
-                    maxWidth="sm"
-                    sx={{ pt: 10 }}
+            <Container
+                component="main"
+                maxWidth="sm"
+                sx={{ pt: 10 }}
+            >
+                <Paper
+                    elevation={3}
+                    sx={{ p: 3 }}
+                    variant="outlined"
                 >
-                    <Paper
-                        elevation={3}
-                        sx={{ p: 3 }}
-                        variant="outlined"
+                    <Typography variant="h6" component="h1">
+                        Alta/Actualización de datos fiscales
+                    </Typography>
+                    <Divider sx={{ my: 1 }} />
+
+                    <Button
+                        variant="contained"
+                        startIcon={<AttachFileIcon />}
+                        color="secondary"
+                        component="label"
+                        sx={{ mb: 2 }}
                     >
-                        <Typography variant="h6" component="h1">
-                            Alta/Actualización de datos fiscales
-                        </Typography>
-                        <Divider sx={{ my: 1 }} />
+                        Seleccionar archivo
+                        <input hidden accept="image/*" multiple type="file" />
+                    </Button>
 
-                        <Button
-                            variant="contained"
-                            startIcon={<AttachFileIcon />}
-                            color="secondary"
-                            component="label"
-                            sx={{ mb: 2 }}
-                        >
-                            Seleccionar archivo
-                            <input hidden accept="image/*" multiple type="file" />
-                        </Button>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
+                        <FormControl fullWidth size="small">
+                            <InputLabel id="demo-simple-select-label">
+                                Uso CFDI
+                            </InputLabel>
+                            <Select
+                                labelId="demo-select-small"
+                                id="demo-select-small"
+                                value={usoCfdi}
+                                label="Uso CFDI"
+                                onChange={handleChange}
+                                required
+                            >
+                                <MenuItem value="">
+                                    Seleccione una opción
+                                </MenuItem>
+                                <MenuItem value={"G01"}>
+                                    Adquisición de mercancías
+                                </MenuItem>
+                                <MenuItem value={"G03"}>Gastos en general</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
 
-                        <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
-                            <FormControl fullWidth size="small">
-                                <InputLabel id="demo-simple-select-label">
-                                    Uso CFDI
-                                </InputLabel>
-                                <Select
-                                    labelId="demo-select-small"
-                                    id="demo-select-small"
-                                    value={usoCfdi}
-                                    label="Uso CFDI"
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    <MenuItem value="">
-                                        Seleccione una opción
-                                    </MenuItem>
-                                    <MenuItem value={"G01"}>
-                                        Adquisición de mercancías
-                                    </MenuItem>
-                                    <MenuItem value={"G03"}>Gastos en general</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Correo"
+                                type="email"
+                                color="primary"
+                                name="email"
+                                size='small'
+                            // value={dataClient.email}
+                            // onChange={handleDataCliente}
+                            />
+                        </FormControl>
+                    </Box>
 
-                        <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Correo"
-                                    type="email"
-                                    color="primary"
-                                    name="email"
-                                    size='small'
-                                // value={dataClient.email}
-                                // onChange={handleDataCliente}
-                                />
-                            </FormControl>
-                        </Box>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Teléfono"
+                                type="tel"
+                                color="primary"
+                                name="tel"
+                                size='small'
+                            // value={dataClient.tel}
+                            // onChange={handleDataCliente}
+                            />
+                        </FormControl>
+                    </Box>
 
-                        <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Teléfono"
-                                    type="tel"
-                                    color="primary"
-                                    name="tel"
-                                    size='small'
-                                // value={dataClient.tel}
-                                // onChange={handleDataCliente}
-                                />
-                            </FormControl>
-                        </Box>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Razón Social"
+                                type="text"
+                                color="primary"
+                                //   value={data.razonSocial}
+                                size='small'
+                                disabled
+                            />
+                        </FormControl>
+                    </Box>
 
-                        <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Razón Social"
-                                    type="text"
-                                    color="primary"
-                                    //   value={data.razonSocial}
-                                    size='small'
-                                    disabled
-                                />
-                            </FormControl>
-                        </Box>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Régimen Fiscal"
+                                type="text"
+                                color="primary"
+                                //   value={data.regimenFiscal}
+                                size='small'
+                                disabled
+                            />
+                        </FormControl>
+                    </Box>
 
-                        <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Régimen Fiscal"
-                                    type="text"
-                                    color="primary"
-                                    //   value={data.regimenFiscal}
-                                    size='small'
-                                    disabled
-                                />
-                            </FormControl>
-                        </Box>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Código Postal"
+                                type="text"
+                                color="primary"
+                                //   value={data.codigoPostal}
+                                size='small'
+                                disabled
+                            />
+                        </FormControl>
+                    </Box>
 
-                        <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Código Postal"
-                                    type="text"
-                                    color="primary"
-                                    //   value={data.codigoPostal}
-                                    size='small'
-                                    disabled
-                                />
-                            </FormControl>
-                        </Box>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Ciudad"
+                                type="text"
+                                color="primary"
+                                //   value={data.city}
+                                size='small'
+                                disabled
+                            />
+                        </FormControl>
+                    </Box>
 
-                        <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Ciudad"
-                                    type="text"
-                                    color="primary"
-                                    //   value={data.city}
-                                    size='small'
-                                    disabled
-                                />
-                            </FormControl>
-                        </Box>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Estado"
+                                type="text"
+                                color="primary"
+                                size='small'
+                                //   value={data.entidadFederativa}
+                                disabled
+                            />
+                        </FormControl>
+                    </Box>
 
-                        <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
-                            <FormControl fullWidth>
-                                <TextField
-                                    label="Estado"
-                                    type="text"
-                                    color="primary"
-                                    size='small'
-                                    //   value={data.entidadFederativa}
-                                    disabled
-                                />
-                            </FormControl>
-                        </Box>
+                    <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
+                        <FormControl fullWidth>
+                            <Button
+                                variant='contained'
+                            >
+                                ACEPTAR
+                            </Button>
+                        </FormControl>
+                    </Box>
 
-                    </Paper>
-                </Container>
+                </Paper>
+            </Container>
         </>
     )
 }
