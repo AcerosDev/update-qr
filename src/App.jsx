@@ -21,8 +21,8 @@ function ResponsiveAppBar() {
       <ThemeProvider theme={theme}>
         <Navbar />
         <Form />
+        
       </ThemeProvider>
-
     </>
   );
 }

@@ -12,14 +12,74 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Divider from "@mui/material/Divider";
 import CircularProgress from '@mui/material/CircularProgress';
+import Alerts from './Alert';
 
 function Form() {
     const [usoCfdi, setUsoCfdi] = useState("");
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [hidden, setHidden] = useState(true);
+    const [fileName, setFileName] = useState("");
+    const [file, setFile] = useState();
+    const [severity, setSeverity] = useState();
+    const [message, setMessage] = useState("");
+    const [openAlert, setOpenAlert] = useState(false)
 
-    const handleChange = (event) => {
-        setUsoCfdi(event.target.value);
+    const handleChange = ({ target }) => {
+        setUsoCfdi(target.value);
     };
+
+    const handleSubmit = () => {
+        setMessage("Datos actualizados con éxito")
+        setOpenAlert(true)
+        setLoading(false)
+        setHidden(true)
+        setSeverity("success")
+    }
+
+    const fileChange = ({ target }) => {
+        setLoading(true);
+
+        if (target.files[0]?.name) {
+            setFileName(target.files[0]?.name);
+            setFile(target.files[0]);
+
+            const formData = new FormData();
+            formData.append("nameFile", target.files[0]?.name);
+            formData.append("usocfdi", usoCfdi);
+            formData.append("address", "fiscal");
+            formData.append("file", target.files[0]);
+
+            // eslint-disable-next-line no-unused-expressions
+            target.files[0].type === "application/pdf"
+                ? target.files[0].size <= 512000
+                    ? (
+                        setHidden(false),
+                        setOpenAlert(false),
+                        setLoading(false)
+                    )
+                    : (
+                        setMessage("Peso excedido (Máx. 500 kB)"),
+                        setOpenAlert(true),
+                        setLoading(false),
+                        setHidden(true),
+                        setSeverity("error")
+                    )
+                : (
+                    setMessage("Seleccione un archivo PDF"),
+                    setOpenAlert(true),
+                    setLoading(false),
+                    setHidden(true),
+                    setSeverity("error")
+                )
+        } else {
+            // eslint-disable-next-line no-unused-expressions
+            setMessage("Seleccione un archivo")
+            setOpenAlert(true)
+            setLoading(false)
+            setHidden(true)
+            setSeverity("error")
+        }
+    }
 
     return (
         <>
@@ -31,7 +91,6 @@ function Form() {
                 <Paper
                     elevation={3}
                     sx={{ p: 3 }}
-                    variant="outlined"
                 >
                     <Typography variant="h6" component="h1">
                         Actualización de datos fiscales
@@ -45,18 +104,29 @@ function Form() {
                         component="label"
                         sx={{ mb: 2 }}
                     >
-                        Seleccionar archivo
-                        <input hidden type="file" />
+                        <label htmlFor="file">
+                            {fileName ? fileName : "Seleccionar archivo"}
+                        </label>
+                        <input
+                            hidden
+                            accept="application/pdf"
+                            id="file"
+                            type="file"
+                            onChange={fileChange}
+                        />
                     </Button>
-
                     {
-                        loading ? (
+                        loading && hidden && (
                             <>
                                 <Box sx={{ display: 'flex' }}>
                                     <CircularProgress />
                                 </Box>
                             </>
-                        ) : (
+                        )
+                    }
+
+                    {
+                        !hidden && (
                             <>
                                 <Box sx={{ display: "flex", alignItems: "flex-end", mb: 1 }}>
                                     <FormControl fullWidth size="small">
@@ -116,7 +186,8 @@ function Form() {
                                             label="Razón Social"
                                             type="text"
                                             color="primary"
-                                            //   value={data.razonSocial}
+                                            value="UNIVERSIDAD PARA LA
+                                              COOPERACION INTERNACIONAL"
                                             size='small'
                                             disabled
                                         />
@@ -129,7 +200,7 @@ function Form() {
                                             label="Régimen Fiscal"
                                             type="text"
                                             color="primary"
-                                            //   value={data.regimenFiscal}
+                                            value="Régimen General de Ley Personas Morales"
                                             size='small'
                                             disabled
                                         />
@@ -142,7 +213,7 @@ function Form() {
                                             label="Código Postal"
                                             type="text"
                                             color="primary"
-                                            //   value={data.codigoPostal}
+                                            value="77539"
                                             size='small'
                                             disabled
                                         />
@@ -155,7 +226,7 @@ function Form() {
                                             label="Ciudad"
                                             type="text"
                                             color="primary"
-                                            //   value={data.city}
+                                            value="CANCUN"
                                             size='small'
                                             disabled
                                         />
@@ -169,7 +240,7 @@ function Form() {
                                             type="text"
                                             color="primary"
                                             size='small'
-                                            //   value={data.entidadFederativa}
+                                            value="QUINTANA ROO"
                                             disabled
                                         />
                                     </FormControl>
@@ -179,6 +250,7 @@ function Form() {
                                     <FormControl fullWidth>
                                         <Button
                                             variant='contained'
+                                            onClick={handleSubmit}
                                         >
                                             ACEPTAR
                                         </Button>
@@ -187,6 +259,16 @@ function Form() {
                             </>
                         )
                     }
+
+                    {
+                        openAlert && (
+                            <Alerts
+                                severity={severity}
+                                message={message}
+                            />
+                        )
+                    }
+
                 </Paper>
             </Container>
         </>
